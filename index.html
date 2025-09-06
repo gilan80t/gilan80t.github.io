@@ -131,10 +131,8 @@
     <div class="progress-label" id="progressText">Progress: 0/1</div>
     <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
 
-    <div style="margin-top: 10px;">Choose a Checkpoint:</div>
-
-    <button class="action-btn" onclick="startCheckpoint('lootlabs')">🔮 LootLabs</button>
-    <button class="action-btn" onclick="startCheckpoint('linkvertise')">🧱 Linkvertise</button>
+    <button class="action-btn" onclick="clickChallenge()">Start Checkpoint</button>
+    <div id="clickCount" style="margin-top:10px;">Clicks: 0/3</div>
 
     <button class="action-btn" id="generateBtn" onclick="generateKey()" disabled>Generate Key</button>
     <input type="text" id="keyOutput" readonly placeholder="Your key will appear here" />
@@ -143,14 +141,18 @@
   <div class="footer">JJHub © 2025 | Mythic Unlock Portal</div>
 
   <script>
-    function startCheckpoint(type) {
-      localStorage.setItem("jjhub_ad_clicked", "true");
-      localStorage.removeItem("jjhub_key_generated");
+    let clicks = 0;
 
-      if (type === "lootlabs") {
-        window.location.href = "https://lootdest.org/s?IUQwp83j&redirect=https://gilan80t.github.io";
-      } else {
-        window.location.href = "https://link-hub.net/1385830/JyaHY7HZZFXD";
+    function clickChallenge() {
+      clicks++;
+      document.getElementById("clickCount").innerText = `Clicks: ${clicks}/3`;
+      if (clicks >= 3) {
+        localStorage.setItem("jjhub_checkpoint", "complete");
+        document.getElementById("progressText").innerText = "Progress: 1/1";
+        document.getElementById("progressBar").style.width = "100%";
+        document.getElementById("progressBar").style.backgroundColor = "#00ff99";
+        document.getElementById("generateBtn").disabled = false;
+        document.getElementById("clickCount").innerText = "✅ Checkpoint complete!";
       }
     }
 
@@ -177,7 +179,7 @@
       validKeys.push({ key, timestamp: now });
       localStorage.setItem("jjhub_keys", JSON.stringify(validKeys));
       localStorage.setItem("jjhub_key_generated", "yes");
-      localStorage.removeItem("jjhub_ad_clicked");
+      localStorage.removeItem("jjhub_checkpoint");
 
       document.getElementById("progressText").innerText = "Progress: 0/1";
       document.getElementById("progressBar").style.width = "0%";
@@ -185,10 +187,10 @@
     }
 
     window.onload = function() {
-      const clicked = localStorage.getItem("jjhub_ad_clicked");
+      const unlocked = localStorage.getItem("jjhub_checkpoint");
       const used = localStorage.getItem("jjhub_key_generated");
 
-      if (clicked === "true" && used !== "yes") {
+      if (unlocked === "complete" && used !== "yes") {
         document.getElementById("progressText").innerText = "Progress: 1/1";
         document.getElementById("progressBar").style.width = "100%";
         document.getElementById("progressBar").style.backgroundColor = "#00ff99";
