@@ -18,15 +18,15 @@
       overflow: hidden;
     }
 
-    /* Animated starfield background */
+    /* Animated space background */
     body::before {
       content: "";
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: url('https://raw.githubusercontent.com/Vortex-scripts/assets/main/starfield.gif') center center / cover no-repeat;
+      background: url('https://i.ibb.co/3mZyY5Z/starfield-loop.gif') center center / cover no-repeat;
       z-index: -1;
-      opacity: 0.2;
+      opacity: 0.3;
       animation: fadeIn 2s ease-out;
     }
 
@@ -124,7 +124,7 @@
     <div class="progress-label" id="progressText">Progress: 0/1</div>
     <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
 
-    <a href="https://lootdest.org/s?x9BSQYnl&redirect=https://gilan80t.github.io/?done=true" target="_blank">
+    <a href="https://link-hub.net/1385830/JyaHY7HZZFXD" target="_blank" onclick="markCheckpoint()">
       <button class="action-btn">Complete Checkpoint</button>
     </a>
 
@@ -135,14 +135,18 @@
   <div class="footer">JJHub © 2025 | Mythic Unlock Portal</div>
 
   <script>
+    function markCheckpoint() {
+      localStorage.setItem("jjhub_checkpoint", "complete");
+    }
+
     function generateKey() {
       const key = Math.random().toString(36).substring(2, 10).toUpperCase() + "-JJHUB";
       document.getElementById("keyOutput").value = key;
     }
 
     window.onload = function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has("done")) {
+      const unlocked = localStorage.getItem("jjhub_checkpoint");
+      if (unlocked === "complete") {
         document.getElementById("progressText").innerText = "Progress: 1/1";
         const bar = document.getElementById("progressBar");
         bar.style.width = "100%";
