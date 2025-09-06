@@ -147,7 +147,8 @@
     }
 
     function generateKey() {
-      if (localStorage.getItem("jjhub_key_generated") === "yes") {
+      const alreadyUsed = localStorage.getItem("jjhub_key_generated");
+      if (alreadyUsed === "yes") {
         alert("You've already generated a key. Please complete the checkpoint again to unlock another.");
         return;
       }
@@ -156,23 +157,25 @@
       document.getElementById("keyOutput").value = key;
       document.getElementById("keyOutput").style.display = "block";
       localStorage.setItem("jjhub_key_generated", "yes");
+
+      // Reset progress after key is generated
+      localStorage.removeItem("jjhub_checkpoint");
+      document.getElementById("progressText").innerText = "Progress: 0/1";
+      document.getElementById("progressBar").style.width = "0%";
+      document.getElementById("progressBar").style.backgroundColor = "#333";
+      document.getElementById("generateBtn").style.display = "none";
     }
 
     window.onload = function() {
       const unlocked = localStorage.getItem("jjhub_checkpoint");
       const used = localStorage.getItem("jjhub_key_generated");
 
-      if (unlocked === "complete") {
+      if (unlocked === "complete" && used !== "yes") {
         document.getElementById("progressText").innerText = "Progress: 1/1";
         const bar = document.getElementById("progressBar");
         bar.style.width = "100%";
         bar.style.backgroundColor = "#00ff99";
         document.getElementById("generateBtn").style.display = "inline-block";
-
-        if (used === "yes") {
-          document.getElementById("keyOutput").style.display = "block";
-          document.getElementById("keyOutput").value = "✅ Key already generated.";
-        }
       }
     };
   </script>
