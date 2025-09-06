@@ -60,27 +60,6 @@
       margin-bottom: 20px;
     }
 
-    .progress-label {
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-
-    .progress {
-      width: 100%;
-      height: 20px;
-      background-color: #222;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 20px;
-    }
-
-    .progress-bar {
-      width: 0%;
-      height: 100%;
-      background-color: #333;
-      transition: width 0.5s ease, background-color 0.5s ease;
-    }
-
     .action-btn {
       background-color: #00ff99;
       color: #000;
@@ -127,8 +106,6 @@
   <div class="container">
     <div class="card">
       <div class="title">🛡️ JJHub Key System</div>
-      <div class="progress-label" id="progressText">Progress: 0/1</div>
-      <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
 
       <a href="https://link-hub.net/1385830/JyaHY7HZZFXD" target="_blank" onclick="markCheckpoint()">
         <button class="action-btn">Complete Checkpoint</button>
@@ -147,8 +124,7 @@
     }
 
     function generateKey() {
-      const alreadyUsed = localStorage.getItem("jjhub_key_generated");
-      if (alreadyUsed === "yes") {
+      if (localStorage.getItem("jjhub_key_generated") === "yes") {
         alert("You've already generated a key. Please complete the checkpoint again to unlock another.");
         return;
       }
@@ -157,12 +133,7 @@
       document.getElementById("keyOutput").value = key;
       document.getElementById("keyOutput").style.display = "block";
       localStorage.setItem("jjhub_key_generated", "yes");
-
-      // Reset progress after key is generated
       localStorage.removeItem("jjhub_checkpoint");
-      document.getElementById("progressText").innerText = "Progress: 0/1";
-      document.getElementById("progressBar").style.width = "0%";
-      document.getElementById("progressBar").style.backgroundColor = "#333";
       document.getElementById("generateBtn").style.display = "none";
     }
 
@@ -171,11 +142,12 @@
       const used = localStorage.getItem("jjhub_key_generated");
 
       if (unlocked === "complete" && used !== "yes") {
-        document.getElementById("progressText").innerText = "Progress: 1/1";
-        const bar = document.getElementById("progressBar");
-        bar.style.width = "100%";
-        bar.style.backgroundColor = "#00ff99";
         document.getElementById("generateBtn").style.display = "inline-block";
+      }
+
+      if (used === "yes") {
+        document.getElementById("keyOutput").style.display = "block";
+        document.getElementById("keyOutput").value = "✅ Key already generated.";
       }
     };
   </script>
