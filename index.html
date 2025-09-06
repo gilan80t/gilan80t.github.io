@@ -4,21 +4,44 @@
   <title>JJHub Key System</title>
   <style>
     body {
-      background: linear-gradient(to bottom, #0f0f0f, #1f1f1f);
-      color: #fff;
+      margin: 0;
       font-family: 'Segoe UI', sans-serif;
+      color: #fff;
       text-align: center;
-      padding-top: 80px;
+      overflow: hidden;
     }
+
+    /* Moving space background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif') center center / cover no-repeat;
+      z-index: -1;
+      animation: moveSpace 60s linear infinite;
+    }
+
+    @keyframes moveSpace {
+      0% { background-position: 0 0; }
+      100% { background-position: 1000px 1000px; }
+    }
+
+    .container {
+      padding-top: 100px;
+    }
+
     .title {
-      font-size: 32px;
+      font-size: 36px;
       color: #00ff99;
       margin-bottom: 20px;
     }
-    .checkpoint {
+
+    .progress-label {
       font-size: 18px;
       margin-bottom: 10px;
     }
+
     .progress {
       width: 300px;
       height: 20px;
@@ -27,11 +50,14 @@
       border-radius: 10px;
       overflow: hidden;
     }
+
     .progress-bar {
-      width: 100%;
+      width: 0%;
       height: 100%;
       background-color: #00ff99;
+      transition: width 0.5s ease;
     }
+
     .action-btn {
       background-color: #00ff99;
       color: #000;
@@ -42,21 +68,31 @@
       cursor: pointer;
       margin-top: 20px;
     }
+
     .key-box {
       margin-top: 30px;
       font-size: 18px;
       color: #00ff99;
     }
+
+    #generateBtn {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <div class="title">🛡️ JJHub Key System</div>
-  <div class="checkpoint">Checkpoint 1: Complete LootLabs</div>
-  <div class="progress"><div class="progress-bar"></div></div>
-  <a href="https://lootdest.org/s?x9BSQYnl&redirect=https://gilan80t.github.io/?done=true" target="_blank">
-    <button class="action-btn">Complete Checkpoint</button>
-  </a>
-  <div class="key-box" id="keyBox"></div>
+  <div class="container">
+    <div class="title">🛡️ JJHub Key System</div>
+    <div class="progress-label" id="progressText">Progress: 0/1</div>
+    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+    <a href="https://lootdest.org/s?x9BSQYnl&redirect=https://gilan80t.github.io/?done=true" target="_blank">
+      <button class="action-btn">Complete Checkpoint</button>
+    </a>
+
+    <button class="action-btn" id="generateBtn" onclick="generateKey()">Generate Key</button>
+    <div class="key-box" id="keyBox"></div>
+  </div>
 
   <script>
     function generateKey() {
@@ -67,7 +103,9 @@
     window.onload = function() {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has("done")) {
-        generateKey();
+        document.getElementById("progressText").innerText = "Progress: 1/1";
+        document.getElementById("progressBar").style.width = "100%";
+        document.getElementById("generateBtn").style.display = "inline-block";
       }
     };
   </script>
