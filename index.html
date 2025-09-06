@@ -18,7 +18,6 @@
       overflow: hidden;
     }
 
-    /* RGB dot space background */
     body::before {
       content: "";
       position: fixed;
@@ -144,36 +143,43 @@
   <script>
     function markCheckpoint() {
       localStorage.setItem("jjhub_checkpoint", "complete");
-      localStorage.removeItem("jjhub_key_generated");
-
-      // Reset progress bar visually
-      document.getElementById("progressText").innerText = "Progress: 0/1";
-      const bar = document.getElementById("progressBar");
-      bar.style.width = "0%";
-      bar.style.backgroundColor = "#333";
-      document.getElementById("generateBtn").style.display = "none";
+      document.getElementById("progressText").innerText = "Progress: 1/1";
+      document.getElementById("progressBar").style.width = "100%";
+      document.getElementById("progressBar").style.backgroundColor = "#00ff99";
+      document.getElementById("generateBtn").style.display = "inline-block";
       document.getElementById("keyOutput").style.display = "none";
       document.getElementById("keyOutput").value = "";
     }
 
     function generateKey() {
+      const now = Date.now();
+      const lastKeys = JSON.parse(localStorage.getItem("jjhub_keys") || "[]");
+
+      // Remove expired keys
+      const validKeys = lastKeys.filter(k => now - k.timestamp < 86400000);
+      if (validKeys.length >= 3) {
+        alert("You've reached the daily limit of 3 keys. Try again tomorrow.");
+        return;
+      }
+
       if (localStorage.getItem("jjhub_key_generated") === "yes") {
-        alert("You've already generated a key. Please complete the checkpoint again to unlock another.");
+        alert("You've already generated a key for this checkpoint.");
         return;
       }
 
       const key = Math.random().toString(36).substring(2, 10).toUpperCase() + "-JJHUB";
       document.getElementById("keyOutput").value = key;
       document.getElementById("keyOutput").style.display = "block";
+      document.getElementById("generateBtn").style.display = "none";
+
+      validKeys.push({ key, timestamp: now });
+      localStorage.setItem("jjhub_keys", JSON.stringify(validKeys));
       localStorage.setItem("jjhub_key_generated", "yes");
       localStorage.removeItem("jjhub_checkpoint");
 
-      // Reset progress bar after key generation
       document.getElementById("progressText").innerText = "Progress: 0/1";
-      const bar = document.getElementById("progressBar");
-      bar.style.width = "0%";
-      bar.style.backgroundColor = "#333";
-      document.getElementById("generateBtn").style.display = "none";
+      document.getElementById("progressBar").style.width = "0%";
+      document.getElementById("progressBar").style.backgroundColor = "#333";
     }
 
     window.onload = function() {
@@ -182,15 +188,9 @@
 
       if (unlocked === "complete" && used !== "yes") {
         document.getElementById("progressText").innerText = "Progress: 1/1";
-        const bar = document.getElementById("progressBar");
-        bar.style.width = "100%";
-        bar.style.backgroundColor = "#00ff99";
+        document.getElementById("progressBar").style.width = "100%";
+        document.getElementById("progressBar").style.backgroundColor = "#00ff99";
         document.getElementById("generateBtn").style.display = "inline-block";
-      }
-
-      if (used === "yes") {
-        document.getElementById("keyOutput").style.display = "block";
-        document.getElementById("keyOutput").value = "✅ Key already generated.";
       }
     };
   </script>
