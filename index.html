@@ -94,7 +94,12 @@
       transition: background-color 0.3s ease;
     }
 
-    .action-btn:hover {
+    .action-btn:disabled {
+      background-color: #555;
+      cursor: not-allowed;
+    }
+
+    .action-btn:hover:enabled {
       background-color: #00cc77;
     }
 
@@ -115,10 +120,6 @@
       color: #666;
     }
 
-    #generateBtn {
-      display: none;
-    }
-
     #keyOutput {
       display: none;
     }
@@ -134,7 +135,7 @@
       <button class="action-btn">Complete Checkpoint</button>
     </a>
 
-    <button class="action-btn" id="generateBtn" onclick="generateKey()">Generate Key</button>
+    <button class="action-btn" id="generateBtn" onclick="generateKey()" disabled>Generate Key</button>
     <input type="text" id="keyOutput" readonly placeholder="Your key will appear here" />
   </div>
 
@@ -143,10 +144,12 @@
   <script>
     function markCheckpoint() {
       localStorage.setItem("jjhub_checkpoint", "complete");
+      localStorage.removeItem("jjhub_key_generated");
+
       document.getElementById("progressText").innerText = "Progress: 1/1";
       document.getElementById("progressBar").style.width = "100%";
       document.getElementById("progressBar").style.backgroundColor = "#00ff99";
-      document.getElementById("generateBtn").style.display = "inline-block";
+      document.getElementById("generateBtn").disabled = false;
       document.getElementById("keyOutput").style.display = "none";
       document.getElementById("keyOutput").value = "";
     }
@@ -154,9 +157,8 @@
     function generateKey() {
       const now = Date.now();
       const lastKeys = JSON.parse(localStorage.getItem("jjhub_keys") || "[]");
-
-      // Remove expired keys
       const validKeys = lastKeys.filter(k => now - k.timestamp < 86400000);
+
       if (validKeys.length >= 3) {
         alert("You've reached the daily limit of 3 keys. Try again tomorrow.");
         return;
@@ -170,7 +172,7 @@
       const key = Math.random().toString(36).substring(2, 10).toUpperCase() + "-JJHUB";
       document.getElementById("keyOutput").value = key;
       document.getElementById("keyOutput").style.display = "block";
-      document.getElementById("generateBtn").style.display = "none";
+      document.getElementById("generateBtn").disabled = true;
 
       validKeys.push({ key, timestamp: now });
       localStorage.setItem("jjhub_keys", JSON.stringify(validKeys));
@@ -190,7 +192,7 @@
         document.getElementById("progressText").innerText = "Progress: 1/1";
         document.getElementById("progressBar").style.width = "100%";
         document.getElementById("progressBar").style.backgroundColor = "#00ff99";
-        document.getElementById("generateBtn").style.display = "inline-block";
+        document.getElementById("generateBtn").disabled = false;
       }
     };
   </script>
