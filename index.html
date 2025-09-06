@@ -131,8 +131,15 @@
     <div class="progress-label" id="progressText">Progress: 0/1</div>
     <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
 
-    <button class="action-btn" onclick="clickChallenge()">Start Checkpoint</button>
-    <div id="clickCount" style="margin-top:10px;">Clicks: 0/3</div>
+    <div style="margin-top: 10px;">Choose a Checkpoint:</div>
+
+    <a href="https://lootdest.org/s?IUQwp83j&redirect=https://gilan80t.github.io/?done=true" target="_blank">
+      <button class="action-btn">🔮 LootLabs</button>
+    </a>
+
+    <a href="https://link-hub.net/1385830/JyaHY7HZZFXD?o=share&url=https://gilan80t.github.io/?done=true" target="_blank">
+      <button class="action-btn">🧱 Linkvertise</button>
+    </a>
 
     <button class="action-btn" id="generateBtn" onclick="generateKey()" disabled>Generate Key</button>
     <input type="text" id="keyOutput" readonly placeholder="Your key will appear here" />
@@ -141,21 +148,6 @@
   <div class="footer">JJHub © 2025 | Mythic Unlock Portal</div>
 
   <script>
-    let clicks = 0;
-
-    function clickChallenge() {
-      clicks++;
-      document.getElementById("clickCount").innerText = `Clicks: ${clicks}/3`;
-      if (clicks >= 3) {
-        localStorage.setItem("jjhub_checkpoint", "complete");
-        document.getElementById("progressText").innerText = "Progress: 1/1";
-        document.getElementById("progressBar").style.width = "100%";
-        document.getElementById("progressBar").style.backgroundColor = "#00ff99";
-        document.getElementById("generateBtn").disabled = false;
-        document.getElementById("clickCount").innerText = "✅ Checkpoint complete!";
-      }
-    }
-
     function generateKey() {
       const now = Date.now();
       const lastKeys = JSON.parse(localStorage.getItem("jjhub_keys") || "[]");
@@ -187,10 +179,12 @@
     }
 
     window.onload = function() {
-      const unlocked = localStorage.getItem("jjhub_checkpoint");
+      const urlParams = new URLSearchParams(window.location.search);
+      const done = urlParams.get("done");
       const used = localStorage.getItem("jjhub_key_generated");
 
-      if (unlocked === "complete" && used !== "yes") {
+      if (done === "true" && used !== "yes") {
+        localStorage.setItem("jjhub_checkpoint", "complete");
         document.getElementById("progressText").innerText = "Progress: 1/1";
         document.getElementById("progressBar").style.width = "100%";
         document.getElementById("progressBar").style.backgroundColor = "#00ff99";
