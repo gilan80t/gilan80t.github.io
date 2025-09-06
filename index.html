@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JJHub Unlock Portal</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding-top: 100px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+      border-radius: 6px;
+      border: none;
+    }
+    input {
+      width: 300px;
+    }
+    button {
+      background-color: #00ff99;
+      color: #000;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔐 JJHub Key Unlock</h1>
+  <p>Paste your key below to unlock JJHub</p>
+  <input type="text" id="keyInput" placeholder="Enter your key..." />
+  <button onclick="checkKey()">Unlock</button>
+  <p id="result"></p>
+
+  <script>
+    async function checkKey() {
+      const key = document.getElementById("keyInput").value.trim();
+      const res = await fetch("keys.json");
+      const data = await res.json();
+      const valid = data["jjhubss"]?.[key];
+      document.getElementById("result").innerText = valid
+        ? "✅ Key is valid. You may now run JJHub."
+        : "❌ Invalid key. Please try again.";
+    }
+  </script>
+</body>
+</html>
