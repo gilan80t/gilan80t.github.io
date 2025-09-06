@@ -6,29 +6,10 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
+      background-color: #0f0f0f;
       color: #fff;
       text-align: center;
-      overflow: hidden;
-    }
-
-    /* Moving space background */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: url('https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif') center center / cover no-repeat;
-      z-index: -1;
-      animation: moveSpace 60s linear infinite;
-    }
-
-    @keyframes moveSpace {
-      0% { background-position: 0 0; }
-      100% { background-position: 1000px 1000px; }
-    }
-
-    .container {
-      padding-top: 100px;
+      padding-top: 80px;
     }
 
     .title {
@@ -49,13 +30,14 @@
       margin: 10px auto;
       border-radius: 10px;
       overflow: hidden;
+      box-shadow: 0 0 5px #000;
     }
 
     .progress-bar {
       width: 0%;
       height: 100%;
-      background-color: #00ff99;
-      transition: width 0.5s ease;
+      background-color: #333;
+      transition: width 0.5s ease, background-color 0.5s ease;
     }
 
     .action-btn {
@@ -78,33 +60,46 @@
     #generateBtn {
       display: none;
     }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      background-color: #1f1f1f;
+      color: #fff;
+      width: 300px;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="title">🛡️ JJHub Key System</div>
-    <div class="progress-label" id="progressText">Progress: 0/1</div>
-    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="title">🛡️ JJHub Key System</div>
+  <div class="progress-label" id="progressText">Progress: 0/1</div>
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
 
-    <a href="https://lootdest.org/s?x9BSQYnl&redirect=https://gilan80t.github.io/?done=true" target="_blank">
-      <button class="action-btn">Complete Checkpoint</button>
-    </a>
+  <a href="https://lootdest.org/s?x9BSQYnl&redirect=https://gilan80t.github.io/?done=true" target="_blank">
+    <button class="action-btn">Complete Checkpoint</button>
+  </a>
 
+  <div id="keyUI">
     <button class="action-btn" id="generateBtn" onclick="generateKey()">Generate Key</button>
-    <div class="key-box" id="keyBox"></div>
+    <input type="text" id="keyOutput" readonly placeholder="Your key will appear here" />
   </div>
 
   <script>
     function generateKey() {
       const key = Math.random().toString(36).substring(2, 10).toUpperCase() + "-JJHUB";
-      document.getElementById("keyBox").innerText = "✅ Your key: " + key;
+      document.getElementById("keyOutput").value = key;
     }
 
     window.onload = function() {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has("done")) {
         document.getElementById("progressText").innerText = "Progress: 1/1";
-        document.getElementById("progressBar").style.width = "100%";
+        const bar = document.getElementById("progressBar");
+        bar.style.width = "100%";
+        bar.style.backgroundColor = "#00ff99";
         document.getElementById("generateBtn").style.display = "inline-block";
       }
     };
