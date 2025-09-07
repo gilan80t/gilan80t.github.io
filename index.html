@@ -7,25 +7,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <style>
     body {
+      margin: 0;
       font-family: 'Orbitron', sans-serif;
-      background: radial-gradient(circle at top left, #0f0f0f, #1a1a1a);
+      background: #000;
+      overflow: hidden;
       color: #00ffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 2rem;
     }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
     .container {
-      text-align: center;
+      position: relative;
+      margin: 5vh auto;
+      max-width: 600px;
+      padding: 2rem;
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
       background: rgba(0, 0, 0, 0.6);
       border: 2px solid #00ffff;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #00ffff;
-      padding: 2rem;
-      max-width: 600px;
+      box-shadow: 0 0 30px #00ffff;
+      text-align: center;
     }
+
     input, button {
       margin: 0.5rem;
       padding: 0.8rem;
@@ -33,11 +41,14 @@
       border: none;
       font-size: 1rem;
     }
+
     button {
       background-color: #00ffff;
       color: #000;
       cursor: pointer;
+      font-weight: bold;
     }
+
     .script-box {
       margin-top: 1rem;
       background: #111;
@@ -48,6 +59,7 @@
       display: none;
       white-space: pre-wrap;
     }
+
     .buy-link {
       margin-bottom: 1rem;
       display: block;
@@ -57,6 +69,7 @@
   </style>
 </head>
 <body>
+  <canvas id="bg"></canvas>
   <div class="container">
     <h1>🚀 JJHub Auto Joiner Unlock</h1>
     <a class="buy-link" href="https://www.roblox.com/game-pass/1451516545/JJHub-Auto-Joiner" target="_blank">
@@ -94,6 +107,50 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/gilan80t/SAB/main/--%
         result.textContent = '⚠️ Error checking ownership. Try again later.';
       }
     }
+  </script>
+
+  <script>
+    const canvas = document.getElementById('bg');
+    const ctx = canvas.getContext('2d');
+    let dots = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    for (let i = 0; i < 100; i++) {
+      dots.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2 + 1,
+        dx: (Math.random() - 0.5) * 0.5,
+        dy: (Math.random() - 0.5) * 0.5,
+        hue: Math.random() * 360
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      dots.forEach(dot => {
+        dot.x += dot.dx;
+        dot.y += dot.dy;
+        if (dot.x < 0 || dot.x > canvas.width) dot.dx *= -1;
+        if (dot.y < 0 || dot.y > canvas.height) dot.dy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(dot.x, dot.y, dot.r, 0, Math.PI * 2);
+        ctx.fillStyle = `hsl(${dot.hue}, 100%, 50%)`;
+        ctx.fill();
+        dot.hue += 0.5;
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
   </script>
 </body>
 </html>
