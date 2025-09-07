@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JJHub Auto Joiner Unlock</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"></script>
   <style>
     body {
       margin: 0;
@@ -97,10 +96,6 @@
   </div>
 
   <script>
-    // Encrypted script (AES-encrypted version of your loadstring)
-    const encryptedScript = "U2FsdGVkX1+Xv2YJrZk..."; // Replace with actual encrypted string
-    const secretKey = "jjhub2025"; // Replace with your actual key
-
     async function checkOwnership() {
       const username = document.getElementById('username').value.trim();
       const result = document.getElementById('result');
@@ -115,9 +110,7 @@
 
         if (data.owns) {
           result.textContent = '✅ Ownership verified! Here’s your script:';
-          const bytes = CryptoJS.AES.decrypt(encryptedScript, secretKey);
-          const decrypted = bytes.toString(CryptoJS.enc.Utf8);
-          scriptBox.textContent = decrypted;
+          scriptBox.textContent = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/gilan80t/SAB/main/autojoiner1-obfuscated.lua"))()';
           scriptBox.style.display = 'block';
         } else {
           result.textContent = '❌ You do not own the gamepass. Please buy it first.';
