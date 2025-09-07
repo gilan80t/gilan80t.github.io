@@ -3,206 +3,74 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JJHub Key System</title>
+  <title>JJHub Auto Joiner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #000;
-      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(circle at top left, #0f0f0f, #1a1a1a);
+      color: #00ffff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
+      height: 100vh;
       overflow: hidden;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: radial-gradient(circle, red 1px, transparent 1px),
-                  radial-gradient(circle, green 1px, transparent 1px),
-                  radial-gradient(circle, blue 1px, transparent 1px);
-      background-size: 40px 40px;
-      background-position: 0 0, 20px 20px, 10px 30px;
-      animation: moveDots 60s linear infinite;
-      z-index: -1;
-      opacity: 0.2;
-    }
-
-    @keyframes moveDots {
-      0% { background-position: 0 0, 20px 20px, 10px 30px; }
-      100% { background-position: 1000px 1000px, 1020px 1020px, 1010px 1030px; }
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      padding: 40px;
-      width: 90%;
-      max-width: 500px;
-      box-shadow: 0 0 20px #00ff99;
+    .container {
       text-align: center;
-      animation: fadeIn 0.8s ease-out;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid #00ffff;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00ffff;
+      max-width: 500px;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #ffffff;
     }
 
-    .title {
-      font-size: 36px;
-      color: #00ff99;
-      margin-bottom: 20px;
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      color: #cccccc;
     }
 
-    .progress-label {
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-
-    .progress {
-      width: 100%;
-      height: 20px;
-      background-color: #222;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 20px;
-    }
-
-    .progress-bar {
-      width: 0%;
-      height: 100%;
-      background-color: #333;
-      transition: width 0.5s ease, background-color 0.5s ease;
-    }
-
-    .action-btn {
-      background-color: #00ff99;
-      color: #000;
-      padding: 12px 24px;
-      font-size: 16px;
+    .buy-button {
+      background: linear-gradient(90deg, #00ffff, #0077ff);
       border: none;
+      color: black;
+      padding: 1rem 2rem;
+      font-size: 1rem;
       border-radius: 8px;
       cursor: pointer;
-      margin: 10px 5px;
-      transition: background-color 0.3s ease;
+      transition: transform 0.2s ease;
     }
 
-    .action-btn:disabled {
-      background-color: #555;
-      cursor: not-allowed;
-    }
-
-    .action-btn:hover:enabled {
-      background-color: #00cc77;
-    }
-
-    input {
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: none;
-      background-color: #1f1f1f;
-      color: #fff;
-      width: 100%;
-      margin-top: 15px;
+    .buy-button:hover {
+      transform: scale(1.05);
     }
 
     .footer {
-      margin-top: 40px;
-      font-size: 14px;
-      color: #666;
-    }
-
-    #keyOutput {
-      display: none;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #888;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="title">🛡️ JJHub Key System</div>
-    <div class="progress-label" id="progressText">Progress: 0/1</div>
-    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
-
-    <div style="margin-top: 10px;">Choose a Checkpoint:</div>
-
-    <a href="https://lootdest.org/s?IUQwp83j&redirect=https://gilan80t.github.io/?done=true" target="_blank" onclick="startCheckpoint()">
-      <button class="action-btn">🔮 LootLabs</button>
+  <div class="container">
+    <h1>🚀 JJHub Auto Joiner</h1>
+    <p>Unlock instant server hopping and mythic execution. Purchase below to receive your script automatically.</p>
+    <a href="https://www.roblox.com/games/YOUR_GAME_ID" target="_blank">
+      <button class="buy-button">Buy with Robux</button>
     </a>
-
-    <a href="https://link-hub.net/1385830/JyaHY7HZZFXD?o=share&url=https://gilan80t.github.io/?done=true" target="_blank" onclick="startCheckpoint()">
-      <button class="action-btn">🧱 Linkvertise</button>
-    </a>
-
-    <button class="action-btn" id="generateBtn" onclick="generateKey()" disabled>Generate Key</button>
-    <input type="text" id="keyOutput" readonly placeholder="Your key will appear here" />
+    <div class="footer">Powered by JJHub • Mythic Security • Cosmic UI</div>
   </div>
-
-  <div class="footer">JJHub © 2025 | Mythic Unlock Portal</div>
-
-  <script>
-    function startCheckpoint() {
-      localStorage.setItem("jjhub_checkpoint_start", Date.now().toString());
-      localStorage.removeItem("jjhub_key_generated");
-    }
-
-    function generateKey() {
-      const now = Date.now();
-      const lastKeys = JSON.parse(localStorage.getItem("jjhub_keys") || "[]");
-      const validKeys = lastKeys.filter(k => now - k.timestamp < 86400000);
-
-      if (validKeys.length >= 3) {
-        alert("You've reached the daily limit of 3 keys. Try again tomorrow.");
-        return;
-      }
-
-      if (localStorage.getItem("jjhub_key_generated") === "yes") {
-        alert("You've already generated a key for this checkpoint.");
-        return;
-      }
-
-      const key = Math.random().toString(36).substring(2, 10).toUpperCase() + "-JJHUB";
-      document.getElementById("keyOutput").value = key;
-      document.getElementById("keyOutput").style.display = "block";
-      document.getElementById("generateBtn").disabled = true;
-
-      validKeys.push({ key, timestamp: Date.now() });
-      localStorage.setItem("jjhub_keys", JSON.stringify(validKeys));
-      localStorage.setItem("jjhub_key_generated", "yes");
-      localStorage.removeItem("jjhub_checkpoint");
-      localStorage.removeItem("jjhub_checkpoint_start");
-
-      document.getElementById("progressText").innerText = "Progress: 0/1";
-      document.getElementById("progressBar").style.width = "0%";
-      document.getElementById("progressBar").style.backgroundColor = "#333";
-    }
-
-    window.onload = function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const done = urlParams.get("done");
-      const used = localStorage.getItem("jjhub_key_generated");
-      const startTime = parseInt(localStorage.getItem("jjhub_checkpoint_start") || "0");
-      const now = Date.now();
-
-      if (done === "true" && used !== "yes") {
-        if (startTime && now - startTime >= 10000) {
-          localStorage.setItem("jjhub_checkpoint", "complete");
-          document.getElementById("progressText").innerText = "Progress: 1/1";
-          document.getElementById("progressBar").style.width = "100%";
-          document.getElementById("progressBar").style.backgroundColor = "#00ff99";
-          document.getElementById("generateBtn").disabled = false;
-        } else {
-          alert("⛔ You returned too quickly. Please complete the checkpoint properly.");
-        }
-      }
-    };
-  </script>
 </body>
 </html>
