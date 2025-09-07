@@ -24,7 +24,7 @@
     .container {
       position: relative;
       margin: 5vh auto;
-      max-width: 600px;
+      max-width: 640px;
       padding: 2rem;
       border-radius: 16px;
       backdrop-filter: blur(12px);
@@ -53,11 +53,15 @@
       margin-top: 1rem;
       background: #111;
       color: #0ff;
-      padding: 1rem;
-      border-radius: 8px;
+      padding: 1.5rem;
+      border-radius: 12px;
       font-family: monospace;
       display: none;
       white-space: pre-wrap;
+      width: 100%;
+      height: 180px;
+      overflow-y: auto;
+      box-shadow: inset 0 0 10px #00ffff;
     }
 
     .buy-link {
@@ -66,12 +70,20 @@
       color: #00ffff;
       text-decoration: underline;
     }
+
+    .tagline {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      color: #0ff;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
   <canvas id="bg"></canvas>
   <div class="container">
     <h1>🚀 JJHub Auto Joiner Unlock</h1>
+    <p class="tagline">JJHub’s Auto Joiner is the most advanced and reliable SAB script available—trusted by hundreds.</p>
     <a class="buy-link" href="https://www.roblox.com/game-pass/1451516545/JJHub-Auto-Joiner" target="_blank">
       🔓 Buy Gamepass for Access (1 Robux)
     </a>
