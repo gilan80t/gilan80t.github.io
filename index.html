@@ -9,7 +9,7 @@
     body {
       margin: 0;
       font-family: 'Orbitron', sans-serif;
-      background: #000;
+      background: linear-gradient(to bottom right, #000010, #000022, #000033);
       overflow: hidden;
       color: #00ffff;
     }
@@ -21,10 +21,26 @@
       z-index: -1;
     }
 
+    .tagline-box {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid #00ffff;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 0 15px #00ffff;
+      font-size: 0.95rem;
+      color: #0ff;
+      text-align: center;
+      max-width: 600px;
+    }
+
     .container {
       position: relative;
-      margin: 5vh auto;
-      max-width: 640px;
+      margin: 120px auto;
+      max-width: 720px;
       padding: 2rem;
       border-radius: 16px;
       backdrop-filter: blur(12px);
@@ -70,20 +86,17 @@
       color: #00ffff;
       text-decoration: underline;
     }
-
-    .tagline {
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
-      color: #0ff;
-      font-style: italic;
-    }
   </style>
 </head>
 <body>
   <canvas id="bg"></canvas>
+
+  <div class="tagline-box">
+    JJHub’s Auto Joiner is the most advanced and reliable SAB script available—trusted by hundreds.
+  </div>
+
   <div class="container">
     <h1>🚀 JJHub Auto Joiner Unlock</h1>
-    <p class="tagline">JJHub’s Auto Joiner is the most advanced and reliable SAB script available—trusted by hundreds.</p>
     <a class="buy-link" href="https://www.roblox.com/game-pass/1451516545/JJHub-Auto-Joiner" target="_blank">
       🔓 Buy Gamepass for Access (1 Robux)
     </a>
@@ -134,7 +147,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/gilan80t/SAB/main/--%
     window.addEventListener('resize', resize);
     resize();
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 120; i++) {
       dots.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
